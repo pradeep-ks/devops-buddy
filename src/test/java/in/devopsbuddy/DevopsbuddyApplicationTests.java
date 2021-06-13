@@ -1,4 +1,4 @@
-package io.javatech.devopsbuddy;
+package in.devopsbuddy;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

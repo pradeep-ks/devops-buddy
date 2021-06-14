@@ -7,10 +7,49 @@
     <nav th:replace="common/navbar :: common-navbar" />
     <main role="main">
         <div class="container" style="padding: 40px 15px;">
-            <div class="card rounded p-5 shadow-sm">
-                <h2 class="h2 text-center" th:text="#{index.main.callout}">Starter Template</h2>
+            <div class="card rounded-3 p-5 shadow-sm border-info border border-5 bg-light bg-gradient">
+                <div class="card-body text-center">
+                    <h1 class="text-primary" th:text="#{index.h1.text}">Starter Template</h1>
+                    <p class="lead fw-bolder" th:text="#{index.p.lead}"></p>
+                </div>
             </div>
         </div>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="row row-cols-1 row-cols-md-2 g-4">
+                        <div class="col">
+                            <div class="card rounded-pill h-100 shadow-sm border-success">
+                                <div class="card-body">
+                                    <h2 class="card-title text-center" th:text="#{index.basic.membership}">Card title
+                                    </h2>
+                                    <h4 class="text-center" th:text="#{index.h4.basic.membership}"></h4>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="d-grid gap-2 col-6 mx-auto">
+                                        <button class="btn btn-primary rounded-pill" th:text="#{index.basic.signup.button}"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card rounded-pill h-100 shadow-sm border-success">
+                                <div class="card-body">
+                                    <h2 class="card-title text-center" th:text="#{index.pro.membership}">Card title</h2>
+                                    <h4 class="text-center" th:text="#{index.h4.pro.membership}"></h4>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="d-grid gap-2 col-6 mx-auto">
+                                        <button class="btn btn-primary rounded-pill" th:text="#{index.pro.signup.button}"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
     <div th:replace="common/header :: before-body-scripts" />
 </body>

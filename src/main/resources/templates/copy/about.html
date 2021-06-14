@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="common/header :: common-header" />
+
+<body>
+    <nav th:replace="common/navbar :: common-navbar" />
+    <main role="main">
+        <div class="container mb-3">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card rounded p-5 shadow-sm">
+                        <h1 class="text-center" th:text="#{copy.h1.text}"></h1>
+                        <p class="lead" th:text="#{copy.p.lead}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container marketing">
+            <!-- Three columns of text below the carousel -->
+            <div class="row">
+                <div class="col-lg-4">
+                    <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
+                        xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140"
+                        preserveAspectRatio="xMidYMid slice" focusable="false">
+                        <title>Placeholder</title>
+                        <rect width="100%" height="100%" fill="#777" /><text x="50%" y="50%" fill="#777"
+                            dy=".3em">140x140</text>
+                    </svg>
+
+                    <h2>Pradeep Kumar</h2>
+                    <p>
+                        Pradeep Kumar is the lead backend developer with 0 years experience with expertise in Java, Spring and Hibernate.
+                        He is also experienced in various frontend frameworks like Angular, AngularJS, VueJS etc.
+                    </p>
+                    <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
+                </div>
+                <div class="col-lg-4">
+                    <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
+                        xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140"
+                        preserveAspectRatio="xMidYMid slice" focusable="false">
+                        <title>Placeholder</title>
+                        <rect width="100%" height="100%" fill="#777" /><text x="50%" y="50%" fill="#777"
+                            dy=".3em">140x140</text>
+                    </svg>
+
+                    <h2>Pradeep Kumar</h2>
+                    <p>
+                        Pradeep Kumar is the lead backend developer with 0 years experience with expertise in Java, Spring and Hibernate.
+                        He is also experienced in various frontend frameworks like Angular, AngularJS, VueJS etc.
+                    </p>
+                    <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
+                </div><!-- /.col-lg-4 -->
+                <div class="col-lg-4">
+                    <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
+                        xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140"
+                        preserveAspectRatio="xMidYMid slice" focusable="false">
+                        <title>Placeholder</title>
+                        <rect width="100%" height="100%" fill="#777" /><text x="50%" y="50%" fill="#777"
+                            dy=".3em">140x140</text>
+                    </svg>
+
+                    <h2>Pradeep Kumar</h2>
+                    <p>
+                        Pradeep Kumar is the lead backend developer with 0 years experience with expertise in Java, Spring and Hibernate.
+                        He is also experienced in various frontend frameworks like Angular, AngularJS, VueJS etc.
+                    </p>
+                    <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
+                </div><!-- /.col-lg-4 -->
+            </div><!-- /.row -->
+            <!-- START THE FEATURETTES -->
+            <hr class="featurette-divider">
+            <div class="row featurette">
+                <div class="col-md-7">
+                    <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It’ll blow your
+                            mind.</span></h2>
+                    <p class="lead">Some great placeholder content for the first featurette here. Imagine some exciting
+                        prose here.</p>
+                </div>
+                <div class="col-md-5">
+                    <img th:src="@{/images/browser-icon-chrome.png}" alt="" class="featurette-image img-fluid mx-auto">
+                </div>
+            </div>
+            <hr class="featurette-divider">
+            <div class="row featurette">
+                <div class="col-md-7 order-md-2">
+                    <h2 class="featurette-heading">Oh yeah, it’s that good. <span class="text-muted">See for
+                            yourself.</span></h2>
+                    <p class="lead">Another featurette? Of course. More placeholder content here to give you an idea of
+                        how this layout would work with some actual real-world content in place.</p>
+                </div>
+                <div class="col-md-5 order-md-1">
+                    <img th:src="@{/images/browser-icon-firefox.png}" alt="" class="featurette-image img-fluid mx-auto">
+                </div>
+            </div>
+            <hr class="featurette-divider">
+            <div class="row featurette">
+                <div class="col-md-7">
+                    <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
+                    <p class="lead">And yes, this is the last block of representative placeholder content. Again, not
+                        really intended to be actually read, simply here to give you a better view of what this would
+                        look like with some actual content. Your content.</p>
+                </div>
+                <div class="col-md-5">
+                    <img th:src="@{/images/browser-icon-safari.png}" alt="" class="featurette-image img-fluid mx-auto">
+                </div>
+            </div>
+            <hr class="featurette-divider">
+            <!-- /END THE FEATURETTES -->
+        </div><!-- /.container -->
+        <!-- FOOTER -->
+        <footer class="container">
+            <p class="float-end"><a href="#">Back to top</a></p>
+            <p>&copy; 2017–2021 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+        </footer>
+    </main>
+    <div th:replace="common/header :: before-body-scripts" />
+</body>
+
+</html>

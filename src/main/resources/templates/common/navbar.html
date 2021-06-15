@@ -3,20 +3,22 @@
 <body>
     <nav th:fragment="common-navbar" class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark bg-gradient">
         <div class="container">
-            <a href="#" class="navbar-brand" th:text="#{navbar.brand.text}">DevOps Buddy</a>
+            <a th:href="@{/}" class="navbar-brand" th:text="#{navbar.brand.text}">DevOps Buddy</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#appNavbar" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="appNavbar">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a th:href="@{/}" class="nav-link active" th:text="#{navbar.home.text}"></a>
-                    </li>
-                    <li class="nav-item">
                         <a th:href="@{/about}" class="nav-link" th:text="#{navbar.about.text}"></a>
                     </li>
                     <li class="nav-item">
                         <a th:href="@{/contact}" class="nav-link" th:text="#{navbar.contact.text}"></a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav justify-content-end">
+                    <li class="nav-item">
+                        <a th:href="@{/login}" class="nav-link" th:text="#{navbar.login.text}"></a>
                     </li>
                 </ul>
             </div>

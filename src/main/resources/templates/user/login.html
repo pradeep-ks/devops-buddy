@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="common/header :: common-header" />
+
+<body>
+    <nav th:replace="common/navbar :: common-navbar" />
+    <main role="main">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <div class="card rounded-3">
+                        <div class="card-body">
+                            <h1 class="text-center card-title" th:text="#{login.h1.text}"></h1>
+                            <h6 class="card-subtitle text-center" th:text="#{login.h6.text}"></h6>
+                            <br>
+                            <form id="loginForm" th:action="@{/login}" method="POST">
+                                <div class="form-floating mb-3">
+                                    <input type="text" id="username" class="form-control" placeholder="Username" name="username">
+                                    <label for="username" th:text="#{login.username.label}"></label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="password" id="password" class="form-control" placeholder="Password" name="password">
+                                    <label for="password" th:text="#{login.password.label}"></label>
+                                </div>
+                                <div class="d-grid gap-2 col-6 mx-auto">
+                                    <button class="btn btn-primary" type="submit" th:text="#{navbar.login.text}">Button</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div th:replace="common/header :: before-body-scripts" />
+</body>
+
+</html>

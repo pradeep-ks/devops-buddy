@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="common/header :: common-header" />
+
+<body>
+    <nav th:replace="common/navbar :: common-navbar" />
+    <main role="main">
+        <div class="container">
+            <div class="card rounded-3 p-5 shadow-sm border-info border border-5 bg-light bg-gradient">
+                <div class="card-body text-center">
+                    <h1 class="text-primary" th:text="#{payload.h1.text}">Starter Template</h1>
+                    <p class="lead fw-bolder" th:text="#{payload.p.lead}"></p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div th:replace="common/header :: before-body-scripts" />
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="common/header :: common-header" />
+
+<body>
+    <nav th:replace="common/navbar :: common-navbar" />
+    <main role="main">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <div class="card rounded-3">
+                        <div class="card-body">
+                            <h1 class="text-center card-title" th:text="#{contact.h1.text}"></h1>
+                            <h6 class="card-subtitle text-center" th:text="#{contact.h6.text}"></h6>
+                            <br>
+                            <form id="contactForm" th:action="@{/contact}" th:object="${feedbackDTO}" method="POST">
+                                <div class="form-floating mb-3">
+                                    <input type="email" id="email" class="form-control" placeholder="Email Address" th:field="*{email}">
+                                    <label for="email" th:text="#{form.email.label}"></label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" id="firstName" class="form-control" placeholder="First Name" th:field="*{firstName}">
+                                    <label for="firstName" th:text="#{form.firstName.label}"></label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" id="lastName" class="form-control" placeholder="Last Name" th:field="*{lastName}">
+                                    <label for="lastName" th:text="#{form.lastName.label}"></label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <textarea id="feedback" class="form-control" placeholder="Feedback" style="height: 100px;" th:field="*{feedback}"></textarea>
+                                    <label for="feedback" th:text="#{form.feedback.label}"></label>
+                                </div>
+                                <div class="d-grid gap-2 col-6 mx-auto">
+                                    <button class="btn btn-primary" type="submit" th:text="#{form.submit.text}">Button</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div th:replace="common/header :: before-body-scripts" />
+</body>
+
+</html>

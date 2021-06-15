@@ -17,8 +17,13 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav justify-content-end">
-                    <li class="nav-item">
+                    <li class="nav-item" th:if="${#authorization.expression('!isAuthenticated()')}">
                         <a th:href="@{/login}" class="nav-link" th:text="#{navbar.login.text}"></a>
+                    </li>
+                    <li class="nav-item" th:if="${#authorization.expression('isAuthenticated()')}">
+                        <form id="f" role="form" class="form-inline" th:action="@{/logout}" method="post">
+                            <button type="submit" th:href="@{/login}" class="btn btn-link nav-link" th:text="#{navbar.logout.text}"></button>
+                        </form>
                     </li>
                 </ul>
             </div>

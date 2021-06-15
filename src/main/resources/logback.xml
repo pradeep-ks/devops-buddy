@@ -33,7 +33,7 @@
     <logger name="in.devopsbuddy" level="debug" />
     <logger name="org.springframework" level="info" />
     <logger name="org.springframework.web" level="info" />
-    <logger name="org.springframework.security" level="info" />
+    <logger name="org.springframework.security" level="debug" />
     <logger name="org.hibernate" level="warn" />
     <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="warn" />
 

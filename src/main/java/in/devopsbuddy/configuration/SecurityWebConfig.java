@@ -16,6 +16,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import in.devopsbuddy.web.controller.PasswordResetController;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityWebConfig extends WebSecurityConfigurerAdapter {
@@ -35,7 +37,7 @@ public class SecurityWebConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
 
     private static final String[] PUBLIC_MATCHERS = { "/webjars/**", "/css/**", "/js/**", "/images/**", "/",
-            "/about/**", "/contact/**", "/error/**/*", "/console/**" };
+            "/about/**", "/contact/**", "/error/**/*", "/console/**", PasswordResetController.FORGOT_PASSWORD_URL };
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

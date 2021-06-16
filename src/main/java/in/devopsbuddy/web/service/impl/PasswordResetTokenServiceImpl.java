@@ -39,13 +39,18 @@ public class PasswordResetTokenServiceImpl implements PasswordResetTokenService 
     @Override
     @Transactional
     public PasswordResetToken generatePasswordResetTokenForEmail(String email) {
-        var user = this.userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found with email = " + email));
-        var token = UUID.randomUUID().toString();
-        var now = LocalDateTime.now(Clock.systemUTC());
-        var passwordResetToken = new PasswordResetToken(token, user, now, expirationInMinutes);
-        passwordResetToken = passwordResetTokenRepository.saveAndFlush(passwordResetToken);
-        LOGGER.debug("Successfully generated token {} for user {}", token, user.getUsername());
+        PasswordResetToken passwordResetToken = null;
+        var userFound = this.userRepository.findByEmail(email);
+        if (userFound.isPresent()) {
+            var user = userFound.get();
+            var token = UUID.randomUUID().toString();
+            var now = LocalDateTime.now(Clock.systemUTC());
+            passwordResetToken = new PasswordResetToken(token, user, now, expirationInMinutes);
+            passwordResetToken = passwordResetTokenRepository.saveAndFlush(passwordResetToken);
+            LOGGER.debug("Successfully generated token {} for user {}", token, user.getUsername());
+        } else {
+            LOGGER.debug("Could not generate token as user with email {} not found", email);
+        }
         return passwordResetToken;
     }
 }

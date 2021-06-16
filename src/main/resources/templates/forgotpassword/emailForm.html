@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="common/header :: common-header" />
+
+<body>
+    <nav th:replace="common/navbar :: common-navbar" />
+    <main role="main">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <div class="alert alert-info alert-dismissible fade show rounded bg-gradient" role="alert" th:if="${emailSent != null}">
+                        <span th:text="#{forgot-password.message.email-sent}"></span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <div class="card rounded-3">
+                        <div class="card-body">
+                            <h2 class="text-center card-title" th:text="#{forgot-password.h2.text}"></h2>
+                            <br>
+                            <form id="forgotPasswordForm" th:action="@{/forgotpassword}" role="form" method="POST">
+                                <div class="form-floating mb-3">
+                                    <input type="email" id="email" class="form-control" placeholder="Email" name="email">
+                                    <label for="email" th:text="#{forgot-password.email.label}"></label>
+                                </div>
+                                <div class="d-grid gap-2 col-6 mx-auto">
+                                    <button class="btn btn-primary" type="submit" th:text="#{forgot-password.submit.text}">Button</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div th:replace="common/header :: before-body-scripts" />
+</body>
+
+</html>

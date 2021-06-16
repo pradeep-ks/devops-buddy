@@ -1,9 +1,12 @@
 package in.devopsbuddy.util;
 
+import javax.servlet.http.HttpServletRequest;
+
 import in.devopsbuddy.persistence.domain.User;
+import in.devopsbuddy.web.controller.PasswordResetController;
 
 public class UserUtil {
-    
+
     private UserUtil() {
         throw new AssertionError("Non instantiable");
     }
@@ -23,5 +26,14 @@ public class UserUtil {
         user.setUsername(username);
 
         return user;
+    }
+
+    public static Object createPasswordResetUrl(HttpServletRequest request, long userId, String token) {
+        var sb = new StringBuilder();
+        sb.append(request.getScheme()).append("://").append(request.getServerName()).append(":")
+                .append(request.getServerPort()).append(request.getContextPath())
+                .append(PasswordResetController.PASSWORD_RESET_URL).append("?id=").append(userId).append("&token=")
+                .append(token);
+        return sb.toString();
     }
 }

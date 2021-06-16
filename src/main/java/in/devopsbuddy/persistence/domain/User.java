@@ -1,6 +1,6 @@
 package in.devopsbuddy.persistence.domain;
 
-import java.io.Serializable;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -17,9 +17,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 @Entity
 @Table(name = "users")
-public class User implements Serializable {
+public class User implements UserDetails {
  
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -70,6 +73,7 @@ public class User implements Serializable {
         this.id = id;
     }
 
+    @Override
     public String getUsername() {
         return username;
     }
@@ -78,6 +82,7 @@ public class User implements Serializable {
         this.username = username;
     }
 
+    @Override
     public String getPassword() {
         return password;
     }
@@ -94,6 +99,7 @@ public class User implements Serializable {
         this.email = email;
     }
 
+    @Override
     public boolean isEnabled() {
         return enabled;
     }
@@ -191,5 +197,27 @@ public class User implements Serializable {
         if (id != other.id)
             return false;
         return true;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        var authorities = new HashSet<GrantedAuthority>();
+        this.userRoles.forEach(userRole -> authorities.add(new Authority(userRole.getRole().getName())));
+        return authorities;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return this.enabled;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return this.enabled;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return this.enabled;
     }
 }

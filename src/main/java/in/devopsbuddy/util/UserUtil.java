@@ -20,6 +20,7 @@ public class UserUtil {
         user.setPhoneNumber("7982176473");
         user.setProfileImageUrl("https://www.google.co.in?q=dummy");
         user.setStripeCustomerId("joiafsdifjaweo");
+        user.setUsername("dummy");
 
         return user;
     }

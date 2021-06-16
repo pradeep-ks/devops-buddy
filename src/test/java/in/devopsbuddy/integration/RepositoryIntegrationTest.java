@@ -3,7 +3,7 @@ package in.devopsbuddy.integration;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.HashSet;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,6 +17,7 @@ import in.devopsbuddy.enums.PlanEnum;
 import in.devopsbuddy.enums.RoleEnum;
 import in.devopsbuddy.persistence.domain.Plan;
 import in.devopsbuddy.persistence.domain.Role;
+import in.devopsbuddy.persistence.domain.User;
 import in.devopsbuddy.persistence.domain.UserRole;
 import in.devopsbuddy.persistence.repository.PlanRepository;
 import in.devopsbuddy.persistence.repository.RoleRepository;
@@ -61,24 +62,9 @@ public class RepositoryIntegrationTest {
 
     @Test
     public void testCreateNewUser() throws Exception {
-        var plan = createPlan(PlanEnum.BASIC);
-        planRepository.save(plan);
+        var basicUser = createUser();
 
-        var user = UserUtil.createBasicUser();
-        user.setPlan(plan);
-
-        var role = createRole(RoleEnum.BASIC);
-        var userRoles = new HashSet<UserRole>();
-        var userRole = new UserRole(user, role);
-        userRoles.add(userRole);
-
-        user.getUserRoles().addAll(userRoles);
-
-        userRoles.forEach(ur -> roleRepository.save(ur.getRole()));
-
-        user = userRepository.save(user);
-
-        var newUser = userRepository.findById(user.getId()).get();
+        var newUser = userRepository.findById(basicUser.getId()).get();
         assertNotNull(newUser);
         assertTrue(newUser.getId() != 0L);
         assertNotNull(newUser.getPlan());
@@ -90,6 +76,12 @@ public class RepositoryIntegrationTest {
         });
     }
 
+    @Test
+    public void testDeleteUser() throws Exception {
+        var basicUser = createUser();
+        this.userRepository.deleteById(basicUser.getId());
+    }
+
     private Role createRole(RoleEnum roleEnum) {
         return new Role(roleEnum);
     }
@@ -98,4 +90,20 @@ public class RepositoryIntegrationTest {
         return new Plan(planEnum);
     }
 
+    private User createUser() {
+        var basicPlan = createPlan(PlanEnum.BASIC);
+        this.planRepository.save(basicPlan);
+
+        var basicUser = UserUtil.createBasicUser();
+        
+        var basicRole = createRole(RoleEnum.BASIC);
+        this.roleRepository.save(basicRole);
+
+        
+        basicUser.setPlan(basicPlan);
+        basicUser.getUserRoles().addAll(Arrays.asList(new UserRole(basicUser, basicRole)));
+
+        basicUser = this.userRepository.save(basicUser);
+        return basicUser;
+    }
 }

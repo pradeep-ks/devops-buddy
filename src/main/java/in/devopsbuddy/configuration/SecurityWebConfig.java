@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 @Configuration
 @EnableWebSecurity
@@ -17,6 +18,9 @@ public class SecurityWebConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private Environment env;
+
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     private static final String[] PUBLIC_MATCHERS = { "/webjars/**", "/css/**", "/js/**", "/images/**", "/",
             "/about/**", "/contact/**", "/error/**/*", "/console/**" };
@@ -36,7 +40,7 @@ public class SecurityWebConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("user").password("{noop}password").roles("USER");
+        auth.userDetailsService(userDetailsService);
     }
 
 }

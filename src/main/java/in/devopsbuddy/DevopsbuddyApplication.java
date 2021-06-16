@@ -32,9 +32,12 @@ public class DevopsbuddyApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		var user = UserUtil.createBasicUser();
 		var userRoles = new HashSet<UserRole>();
-		userRoles.add(new UserRole(user, new Role(RoleEnum.BASIC)));
+		userRoles.add(new UserRole(user, new Role(RoleEnum.PRO)));
+
 		LOGGER.debug("Creating new user with username {}", user.getUsername());
-		userService.save(user, PlanEnum.PRO, userRoles);
+		
+		user = userService.save(user, PlanEnum.PRO, userRoles);
+		
 		LOGGER.info("User {} created", user.getUsername());
 	}
 

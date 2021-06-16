@@ -1,15 +1,41 @@
 package in.devopsbuddy;
 
+import java.util.HashSet;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+
+import in.devopsbuddy.enums.PlanEnum;
+import in.devopsbuddy.enums.RoleEnum;
+import in.devopsbuddy.persistence.domain.Role;
+import in.devopsbuddy.persistence.domain.UserRole;
+import in.devopsbuddy.util.UserUtil;
+import in.devopsbuddy.web.service.UserService;
 
 @SpringBootApplication
-@EnableJpaRepositories(basePackages = "in.devopsbuddy.persistence.repository")
-public class DevopsbuddyApplication {
+public class DevopsbuddyApplication implements CommandLineRunner {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(DevopsbuddyApplication.class);
+
+	@Autowired
+	private UserService userService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(DevopsbuddyApplication.class, args);
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		var user = UserUtil.createBasicUser();
+		var userRoles = new HashSet<UserRole>();
+		userRoles.add(new UserRole(user, new Role(RoleEnum.BASIC)));
+		LOGGER.debug("Creating new user with username {}", user.getUsername());
+		userService.save(user, PlanEnum.PRO, userRoles);
+		LOGGER.info("User {} created", user.getUsername());
 	}
 
 }

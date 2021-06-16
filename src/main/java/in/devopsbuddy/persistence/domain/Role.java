@@ -11,6 +11,8 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import in.devopsbuddy.enums.RoleEnum;
+
 @Entity
 public class Role implements Serializable {
 
@@ -24,6 +26,11 @@ public class Role implements Serializable {
 
     public Role() {
         //
+    }
+
+    public Role(RoleEnum roleEnum) {
+        this.id = roleEnum.getId();
+        this.name = roleEnum.getRoleName();
     }
 
     public int getId() {

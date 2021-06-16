@@ -13,21 +13,20 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import in.devopsbuddy.DevopsbuddyApplication;
+import in.devopsbuddy.enums.PlanEnum;
+import in.devopsbuddy.enums.RoleEnum;
 import in.devopsbuddy.persistence.domain.Plan;
 import in.devopsbuddy.persistence.domain.Role;
-import in.devopsbuddy.persistence.domain.User;
 import in.devopsbuddy.persistence.domain.UserRole;
 import in.devopsbuddy.persistence.repository.PlanRepository;
 import in.devopsbuddy.persistence.repository.RoleRepository;
 import in.devopsbuddy.persistence.repository.UserRepository;
+import in.devopsbuddy.util.UserUtil;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = DevopsbuddyApplication.class)
 public class RepositoryIntegrationTest {
 
-    private static final int BASIC_PLAN_ID = 1;
-    private static final int USER_ROLE_ID = 1;
-    
     @Autowired
     public PlanRepository planRepository;
 
@@ -46,33 +45,31 @@ public class RepositoryIntegrationTest {
 
     @Test
     public void testCreateNewPlan() throws Exception {
-        Plan plan = createBasicPlan();
+        Plan plan = createPlan(PlanEnum.BASIC);
         planRepository.save(plan);
-        Plan retrieved = planRepository.findById(BASIC_PLAN_ID).get();
+        Plan retrieved = planRepository.findById(PlanEnum.BASIC.getId()).get();
         assertNotNull(retrieved);
     }
 
     @Test
     public void testCreateNewRole() throws Exception {
-        Role role = createUserRole();
+        Role role = createRole(RoleEnum.BASIC);
         roleRepository.save(role);
-        Role retrieved = roleRepository.findById(USER_ROLE_ID).get();
+        Role retrieved = roleRepository.findById(RoleEnum.BASIC.getId()).get();
         assertNotNull(retrieved);
     }
 
     @Test
     public void testCreateNewUser() throws Exception {
-        var plan = createBasicPlan();
+        var plan = createPlan(PlanEnum.BASIC);
         planRepository.save(plan);
 
-        var user = createUser();
+        var user = UserUtil.createBasicUser();
         user.setPlan(plan);
 
-        var role = createUserRole();
+        var role = createRole(RoleEnum.BASIC);
         var userRoles = new HashSet<UserRole>();
-        var userRole = new UserRole();
-        userRole.setUser(user);
-        userRole.setRole(role);
+        var userRole = new UserRole(user, role);
         userRoles.add(userRole);
 
         user.getUserRoles().addAll(userRoles);
@@ -93,33 +90,12 @@ public class RepositoryIntegrationTest {
         });
     }
 
-    private Role createUserRole() {
-        Role role = new Role();
-        role.setId(USER_ROLE_ID);
-        role.setName("ROLE_USER");
-        return role;
+    private Role createRole(RoleEnum roleEnum) {
+        return new Role(roleEnum);
     }
 
-    private Plan createBasicPlan() {
-        Plan plan = new Plan();
-        plan.setId(BASIC_PLAN_ID);
-        plan.setName("Basic");
-        return plan;
+    private Plan createPlan(PlanEnum planEnum) {
+        return new Plan(planEnum);
     }
 
-    private User createUser() {
-        User user = new User();
-        user.setCountry("India");
-        user.setDescription("A dummy user for testing integration");
-        user.setEmail("dummy.user@gmail.com");
-        user.setEnabled(true);
-        user.setFirstName("Dummy");
-        user.setLastName("User");
-        user.setPassword("{noop}password");
-        user.setPhoneNumber("7982176473");
-        user.setProfileImageUrl("https://www.google.co.in?q=dummy");
-        user.setStripeCustomerId("joiafsdifjaweo");
-
-        return user;
-    }
 }

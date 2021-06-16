@@ -1,0 +1,13 @@
+package in.devopsbuddy.web.service;
+
+import java.util.Set;
+
+import in.devopsbuddy.enums.PlanEnum;
+import in.devopsbuddy.persistence.domain.User;
+import in.devopsbuddy.persistence.domain.UserRole;
+
+public interface UserService {
+    
+    User save(User user, PlanEnum planEnum, Set<UserRole> userRoles);
+    
+}

@@ -3,13 +3,10 @@ package in.devopsbuddy.integration;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Arrays;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -18,25 +15,10 @@ import in.devopsbuddy.enums.PlanEnum;
 import in.devopsbuddy.enums.RoleEnum;
 import in.devopsbuddy.persistence.domain.Plan;
 import in.devopsbuddy.persistence.domain.Role;
-import in.devopsbuddy.persistence.domain.User;
-import in.devopsbuddy.persistence.domain.UserRole;
-import in.devopsbuddy.persistence.repository.PlanRepository;
-import in.devopsbuddy.persistence.repository.RoleRepository;
-import in.devopsbuddy.persistence.repository.UserRepository;
-import in.devopsbuddy.util.UserUtil;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = DevopsbuddyApplication.class)
-public class RepositoryIntegrationTest {
-
-    @Autowired
-    public PlanRepository planRepository;
-
-    @Autowired
-    public RoleRepository roleRepository;
-
-    @Autowired
-    public UserRepository userRepository;
+public class UserIntegrationTest extends AbstractIntegrationTest {
 
     @BeforeEach
     public void init() {
@@ -87,28 +69,4 @@ public class RepositoryIntegrationTest {
         this.userRepository.deleteById(basicUser.getId());
     }
 
-    private Role createRole(RoleEnum roleEnum) {
-        return new Role(roleEnum);
-    }
-
-    private Plan createPlan(PlanEnum planEnum) {
-        return new Plan(planEnum);
-    }
-
-    private User createUser(String username, String email) {
-        var basicPlan = createPlan(PlanEnum.BASIC);
-        this.planRepository.save(basicPlan);
-
-        var basicUser = UserUtil.createBasicUser(username, email);
-        
-        var basicRole = createRole(RoleEnum.BASIC);
-        this.roleRepository.save(basicRole);
-
-        
-        basicUser.setPlan(basicPlan);
-        basicUser.getUserRoles().addAll(Arrays.asList(new UserRole(basicUser, basicRole)));
-
-        basicUser = this.userRepository.save(basicUser);
-        return basicUser;
-    }
 }

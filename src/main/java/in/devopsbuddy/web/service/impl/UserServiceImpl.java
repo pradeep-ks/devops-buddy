@@ -20,6 +20,8 @@ import in.devopsbuddy.web.service.UserService;
 @Transactional(readOnly = true)
 public class UserServiceImpl implements UserService {
 
+    private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(UserServiceImpl.class);
+
     @Autowired
     public PlanRepository planRepository;
 
@@ -51,6 +53,13 @@ public class UserServiceImpl implements UserService {
         
         user = this.userRepository.save(user);
         return user;
+    }
+
+    @Override
+    public void updatePassword(long userId, String password) {
+        password = this.passwordEncoder.encode(password);
+        this.userRepository.updatePassword(userId, password);
+        LOGGER.debug("Password updated successfully for user {}", userId);
     }
     
 }

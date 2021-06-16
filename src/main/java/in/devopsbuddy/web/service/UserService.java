@@ -10,4 +10,6 @@ public interface UserService {
     
     User save(User user, PlanEnum planEnum, Set<UserRole> userRoles);
     
+    void updatePassword(long userId, String password);
+    
 }

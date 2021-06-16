@@ -1,7 +1,10 @@
 package in.devopsbuddy.integration;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.UUID;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +21,7 @@ import in.devopsbuddy.persistence.domain.Role;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = DevopsbuddyApplication.class)
-public class UserIntegrationTest extends AbstractIntegrationTest {
+public class UserRepositoryIntegrationTest extends AbstractIntegrationTest {
 
     @BeforeEach
     public void init() {
@@ -69,4 +72,26 @@ public class UserIntegrationTest extends AbstractIntegrationTest {
         this.userRepository.deleteById(basicUser.getId());
     }
 
+    @Test
+    public void testFindByEmail(TestInfo testInfo) throws Exception {
+        var basicUser = createUser(testInfo);
+
+        var newUser = userRepository.findByEmail(basicUser.getEmail()).get();
+        assertNotNull(newUser);
+        assertNotNull(newUser.getId());
+    }
+
+    @Test
+    public void testUpdatePassword(TestInfo testInfo) throws Exception {
+        var basicUser = createUser(testInfo);
+        assertNotNull(basicUser);
+        assertNotNull(basicUser.getId());
+
+        var newPassword = UUID.randomUUID().toString();
+
+        userRepository.updatePassword(basicUser.getId(), newPassword);
+
+        var user = userRepository.findById(basicUser.getId()).get();
+        assertEquals(newPassword, user.getPassword());
+    }
 }

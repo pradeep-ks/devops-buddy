@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.util.HashSet;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,8 +27,10 @@ public class ServiceIntegrationTest {
     private UserService userService;
 
     @Test
-    public void testCreateNewUser() throws Exception {
-        var basicUser = UserUtil.createBasicUser();
+    public void testCreateNewUser(TestInfo testInfo) throws Exception {
+        var username = testInfo.getDisplayName();
+        var email = testInfo.getDisplayName() + "@devopsbuddy.in";
+        var basicUser = UserUtil.createBasicUser(username, email);
         var userRoles = new HashSet<UserRole>();
         userRoles.add(new UserRole(basicUser, new Role(RoleEnum.BASIC)));
 

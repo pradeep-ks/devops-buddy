@@ -7,6 +7,7 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -61,8 +62,10 @@ public class RepositoryIntegrationTest {
     }
 
     @Test
-    public void testCreateNewUser() throws Exception {
-        var basicUser = createUser();
+    public void testCreateNewUser(TestInfo testInfo) throws Exception {
+        var username = testInfo.getDisplayName();
+        var email = testInfo.getDisplayName() + "@devopsbuddy.in";
+        var basicUser = createUser(username, email);
 
         var newUser = userRepository.findById(basicUser.getId()).get();
         assertNotNull(newUser);
@@ -77,8 +80,10 @@ public class RepositoryIntegrationTest {
     }
 
     @Test
-    public void testDeleteUser() throws Exception {
-        var basicUser = createUser();
+    public void testDeleteUser(TestInfo testInfo) throws Exception {
+        var username = testInfo.getDisplayName();
+        var email = testInfo.getDisplayName() + "@devopsbuddy.in";
+        var basicUser = createUser(username, email);
         this.userRepository.deleteById(basicUser.getId());
     }
 
@@ -90,11 +95,11 @@ public class RepositoryIntegrationTest {
         return new Plan(planEnum);
     }
 
-    private User createUser() {
+    private User createUser(String username, String email) {
         var basicPlan = createPlan(PlanEnum.BASIC);
         this.planRepository.save(basicPlan);
 
-        var basicUser = UserUtil.createBasicUser();
+        var basicUser = UserUtil.createBasicUser(username, email);
         
         var basicRole = createRole(RoleEnum.BASIC);
         this.roleRepository.save(basicRole);

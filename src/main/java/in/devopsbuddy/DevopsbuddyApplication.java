@@ -30,7 +30,10 @@ public class DevopsbuddyApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		var user = UserUtil.createBasicUser();
+		var username = "proUser";
+		var email = "user.pro@devopsbuddy.in";
+
+		var user = UserUtil.createBasicUser(username, email);
 		var userRoles = new HashSet<UserRole>();
 		userRoles.add(new UserRole(user, new Role(RoleEnum.PRO)));
 

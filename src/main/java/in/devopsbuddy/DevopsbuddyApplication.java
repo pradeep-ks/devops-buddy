@@ -5,6 +5,7 @@ import java.util.HashSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -24,18 +25,28 @@ public class DevopsbuddyApplication implements CommandLineRunner {
 	@Autowired
 	private UserService userService;
 
+	@Value("${webmaster.username}")
+	private String username;
+
+	@Value("${webmaster.password}")
+	private String password;
+
+	@Value("${webmaster.email}")
+	private String email;
+
 	public static void main(String[] args) {
 		SpringApplication.run(DevopsbuddyApplication.class, args);
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-		var username = "proUser";
-		var email = "user.pro@devopsbuddy.in";
+		/* var username = "proUser";
+		var email = "user.pro@devopsbuddy.in"; */
 
 		var user = UserUtil.createBasicUser(username, email);
+		user.setPassword(password);
 		var userRoles = new HashSet<UserRole>();
-		userRoles.add(new UserRole(user, new Role(RoleEnum.PRO)));
+		userRoles.add(new UserRole(user, new Role(RoleEnum.ADMIN)));
 
 		LOGGER.debug("Creating new user with username {}", user.getUsername());
 		

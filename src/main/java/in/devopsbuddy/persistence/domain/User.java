@@ -20,9 +20,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "users")
 public class User implements Serializable {
-    
-    private static final Long serialVersionUID = 1L;
-
+ 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;

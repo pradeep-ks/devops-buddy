@@ -21,7 +21,7 @@ public class WebMvcDevConfig {
     }
 
     @Bean
-    public ServletRegistrationBean h2ConsoleServletRegistration() {
+    public ServletRegistrationBean<WebServlet> h2ConsoleServletRegistration() {
         ServletRegistrationBean<WebServlet> bean = new ServletRegistrationBean<>(new WebServlet());
         bean.addUrlMappings("/console/*");
         return bean;

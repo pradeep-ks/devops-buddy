@@ -12,16 +12,16 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "user_roles")
 public class UserRole implements Serializable  {
-    
-    private static final Long serialVersionUID = 1L;
 
     @Id
-    @ManyToOne(fetch = FetchType.EAGER)
+    //@ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
     @Id
-    @ManyToOne(fetch = FetchType.EAGER)
+    // @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id")
     private Role role;
 

@@ -14,8 +14,6 @@ import javax.persistence.OneToMany;
 @Entity
 public class Role implements Serializable {
 
-    private static final Long serialVersionUID = 1L;
-
     @Id
     private int id;
 

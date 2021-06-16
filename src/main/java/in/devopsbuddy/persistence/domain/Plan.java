@@ -9,8 +9,6 @@ import javax.persistence.Id;
 @Entity
 public class Plan implements Serializable {
 
-    private static final Long serialVersionUID = 1L;
-
     @Id
     private int id;
 

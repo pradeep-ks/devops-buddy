@@ -16,7 +16,7 @@ public class UserUtil {
         user.setEnabled(true);
         user.setFirstName("Dummy");
         user.setLastName("User");
-        user.setPassword("{noop}password");
+        user.setPassword("password");
         user.setPhoneNumber("7982176473");
         user.setProfileImageUrl("https://www.google.co.in?q=dummy");
         user.setStripeCustomerId("joiafsdifjaweo");

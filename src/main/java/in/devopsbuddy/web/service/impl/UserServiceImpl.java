@@ -3,6 +3,7 @@ package in.devopsbuddy.web.service.impl;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,10 +28,14 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     public UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     
     @Override
     @Transactional
     public User save(User user, PlanEnum planEnum, Set<UserRole> userRoles) {
+        user.setPassword(this.passwordEncoder.encode(user.getPassword()));
         var plan = new Plan(planEnum);
         if (!this.planRepository.existsById(planEnum.getId())) {
             plan = this.planRepository.save(plan);

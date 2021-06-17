@@ -25,7 +25,7 @@ public class UserUtilUnitTest {
         mockHttpServletRequest.setServerPort(8080);
         var userId = 1234L;
         var token = UUID.randomUUID().toString();
-        var expectedUrl = String.format("http://localhost:8080%s?id=%d&token=%s", PasswordResetController.PASSWORD_RESET_URL, userId, token);
+        var expectedUrl = String.format("http://localhost:8080%s?id=%d&token=%s", PasswordResetController.URL_UPDATE_PASSWORD, userId, token);
         var actualUrl = UserUtil.createPasswordResetUrl(mockHttpServletRequest, userId, token);
         assertEquals(expectedUrl, actualUrl);
     }

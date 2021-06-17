@@ -32,7 +32,7 @@ public class UserUtil {
         var sb = new StringBuilder();
         sb.append(request.getScheme()).append("://").append(request.getServerName()).append(":")
                 .append(request.getServerPort()).append(request.getContextPath())
-                .append(PasswordResetController.PASSWORD_RESET_URL).append("?id=").append(userId).append("&token=")
+                .append(PasswordResetController.URL_UPDATE_PASSWORD).append("?id=").append(userId).append("&token=")
                 .append(token);
         return sb.toString();
     }

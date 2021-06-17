@@ -37,7 +37,8 @@ public class SecurityWebConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
 
     private static final String[] PUBLIC_MATCHERS = { "/webjars/**", "/css/**", "/js/**", "/images/**", "/",
-            "/about/**", "/contact/**", "/error/**/*", "/console/**", PasswordResetController.FORGOT_PASSWORD_URL };
+            "/about/**", "/contact/**", "/error/**/*", "/console/**", PasswordResetController.URL_FORGOT_PASSWORD,
+            PasswordResetController.URL_UPDATE_PASSWORD };
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

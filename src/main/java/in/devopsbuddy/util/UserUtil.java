@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import in.devopsbuddy.persistence.domain.User;
 import in.devopsbuddy.web.controller.PasswordResetController;
+import in.devopsbuddy.web.domain.dto.BasicAccount;
 
 public class UserUtil {
 
@@ -28,12 +29,26 @@ public class UserUtil {
         return user;
     }
 
-    public static Object createPasswordResetUrl(HttpServletRequest request, long userId, String token) {
+    public static String createPasswordResetUrl(HttpServletRequest request, long userId, String token) {
         var sb = new StringBuilder();
         sb.append(request.getScheme()).append("://").append(request.getServerName()).append(":")
                 .append(request.getServerPort()).append(request.getContextPath())
                 .append(PasswordResetController.URL_UPDATE_PASSWORD).append("?id=").append(userId).append("&token=")
                 .append(token);
         return sb.toString();
+    }
+
+    public static <T extends BasicAccount> User fromPayloadToDomainUser(T payload) {
+        User user = new User();
+        user.setUsername(payload.getUsername());
+        user.setEmail(payload.getEmail());
+        user.setPassword(payload.getPassword());
+        user.setFirstName(payload.getFirstName());
+        user.setLastName(payload.getLastName());
+        user.setDescription(payload.getDescription());
+        user.setPhoneNumber(payload.getPhoneNumber());
+        user.setCountry(payload.getCountry());
+        user.setEnabled(true);
+        return user;
     }
 }

@@ -15,6 +15,7 @@ import in.devopsbuddy.enums.RoleEnum;
 import in.devopsbuddy.persistence.domain.Role;
 import in.devopsbuddy.persistence.domain.UserRole;
 import in.devopsbuddy.util.UserUtil;
+import in.devopsbuddy.web.service.PlanService;
 import in.devopsbuddy.web.service.UserService;
 
 @SpringBootApplication
@@ -24,6 +25,9 @@ public class DevopsbuddyApplication implements CommandLineRunner {
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private PlanService planService;
 
 	@Value("${webmaster.username}")
 	private String username;
@@ -42,7 +46,9 @@ public class DevopsbuddyApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		/* var username = "proUser";
 		var email = "user.pro@devopsbuddy.in"; */
-
+		this.planService.save(PlanEnum.BASIC.getId());
+		this.planService.save(PlanEnum.PRO.getId());
+		
 		var user = UserUtil.createBasicUser(username, email);
 		user.setPassword(password);
 		var userRoles = new HashSet<UserRole>();

@@ -61,5 +61,15 @@ public class UserServiceImpl implements UserService {
         this.userRepository.updatePassword(userId, password);
         LOGGER.debug("Password updated successfully for user {}", userId);
     }
+
+    @Override
+    public boolean existsByUsername(String username) {
+        return this.userRepository.existsByUsername(username);
+    }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        return this.userRepository.existsByEmail(email);
+    }
     
 }

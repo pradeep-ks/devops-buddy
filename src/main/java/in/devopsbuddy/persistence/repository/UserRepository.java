@@ -19,6 +19,10 @@ public interface UserRepository extends CrudRepository<User, Long> {
     
     Optional<User> findByEmail(String email);
     
+    boolean existsByUsername(String username);
+
+    boolean existsByEmail(String email);
+    
     @Modifying
     @Query("UPDATE User u SET u.password = :password WHERE u.id = :userId")
     void updatePassword(@Param("userId") long userId, @Param("password") String password);

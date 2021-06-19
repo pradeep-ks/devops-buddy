@@ -12,4 +12,8 @@ public interface UserService {
     
     void updatePassword(long userId, String password);
     
+    boolean existsByUsername(String username);
+
+    boolean existsByEmail(String email);
+    
 }

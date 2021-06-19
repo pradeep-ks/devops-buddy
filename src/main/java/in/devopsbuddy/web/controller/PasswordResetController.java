@@ -136,7 +136,7 @@ public class PasswordResetController {
         return VIEW_NAME_UPDATE_PASSWORD;
     }
 
-    @RequestMapping(value = URL_UPDATE_PASSWORD, method = RequestMethod.GET)
+    @RequestMapping(value = URL_UPDATE_PASSWORD, method = RequestMethod.POST)
     public String updatePassword(@RequestParam("principal_id") long id, @RequestParam("password") String password,
             ModelMap modelMap) {
         var authentication = SecurityContextHolder.getContext().getAuthentication();

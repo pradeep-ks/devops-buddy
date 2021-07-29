@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import in.devopsbuddy.enums.PlanEnum;
 import in.devopsbuddy.enums.RoleEnum;
@@ -67,6 +68,7 @@ public class SignUpController {
 
     @RequestMapping(value = URL_SIGNUP, method = RequestMethod.POST)
     public String signup(@RequestParam(name = "planId", required = true) int planId,
+            @RequestParam(name = "profileImage", required = false) MultipartFile profileImage,
             @Valid @ModelAttribute(ATTRIBUTE_NAME_PAYLOAD) ProAccount payload, ModelMap model) throws IOException {
         if (planId != PlanEnum.BASIC.getId() && planId != PlanEnum.PRO.getId()) {
             LOGGER.error("Plan id {} not valid", planId);
@@ -91,14 +93,23 @@ public class SignUpController {
             errors.add("Email already registered!");
             duplicates = true;
         }
-        
+
         if (duplicates) {
             model.addAttribute(ATTRIBUTE_NAME_ERROR_MESSAGE, errors);
             return VIEW_NAME_SIGNUP;
         }
-        
+
         User user = UserUtil.fromPayloadToDomainUser(payload);
 
+        // Stores profile image to Amazon S3
+        if (profileImage != null && !profileImage.isEmpty()) {
+            String profileImageUrl = null;
+            if (profileImageUrl != null) {
+                user.setProfileImageUrl(profileImageUrl);
+            } else {
+                LOGGER.warn("There was a problem uploading profile image to aws");
+            }
+        }
         Plan selectedPlan = this.planService.findById(planId).orElse(null);
         if (selectedPlan == null) {
             model.addAttribute(ATTRIBUTE_NAME_SIGNED_UP, "false");
@@ -119,7 +130,8 @@ public class SignUpController {
         }
 
         // auto-login registered user
-        Authentication authentication = new UsernamePasswordAuthenticationToken(registeredUser, null, registeredUser.getAuthorities());
+        Authentication authentication = new UsernamePasswordAuthenticationToken(registeredUser, null,
+                registeredUser.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
         model.addAttribute(ATTRIBUTE_NAME_SIGNED_UP, "true");
         return VIEW_NAME_SIGNUP;

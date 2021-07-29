@@ -73,6 +73,10 @@
                                     </select>
                                     <label for="country" th:text="#{signup.country.label}"></label>
                                 </div>
+                                <div class="form-floating mb-3 position-relative">
+                                    <input type="file" id="profileImage" class="form-control" placeholder="Select Profile Image" name="profileImage">
+                                    <label for="profileImage" th:text="#{signup.profileImage.label}"></label>
+                                </div>
                                 <div class="d-grid gap-2 col-6 mx-auto">
                                     <button class="btn btn-primary" type="submit" th:text="#{signup.submit.text}">Button</button>
                                 </div>

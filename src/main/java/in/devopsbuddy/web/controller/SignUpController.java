@@ -29,6 +29,7 @@ import in.devopsbuddy.persistence.domain.UserRole;
 import in.devopsbuddy.util.UserUtil;
 import in.devopsbuddy.web.domain.dto.ProAccount;
 import in.devopsbuddy.web.service.PlanService;
+import in.devopsbuddy.web.service.S3Service;
 import in.devopsbuddy.web.service.UserService;
 
 @Controller
@@ -55,6 +56,9 @@ public class SignUpController {
 
     @Autowired
     private PlanService planService;
+
+    @Autowired
+    private S3Service s3Service;
 
     @RequestMapping(value = URL_SIGNUP, method = RequestMethod.GET)
     public String signup(@RequestParam("planId") int planId, ModelMap model) {
@@ -103,7 +107,7 @@ public class SignUpController {
 
         // Stores profile image to Amazon S3
         if (profileImage != null && !profileImage.isEmpty()) {
-            String profileImageUrl = null;
+            String profileImageUrl = this.s3Service.uploadProfileImage(profileImage, user.getUsername());
             if (profileImageUrl != null) {
                 user.setProfileImageUrl(profileImageUrl);
             } else {
